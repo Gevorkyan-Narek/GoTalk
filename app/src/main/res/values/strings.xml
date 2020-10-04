@@ -16,4 +16,6 @@
     <string name="enter_your_full_name">Enter your full name</string>
     <string name="enter_your_mood">Enter your mood</string>
     <string name="complete">Complete</string>
+    <string name="personName">%1$s</string>
+    <string name="message">Message</string>
 </resources>
