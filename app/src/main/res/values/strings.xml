@@ -7,4 +7,9 @@
     <string name="continue_with_phone_number">Continue with phone number</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="sign_up_here">Sign up here</string>
+    <string name="enter_your_gmail_address">Enter your gmail address</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="forgot_password"><u>Forgot password?</u></string>
+    <string name="sign_in">Sign in</string>
+    <string name="back">Back</string>
 </resources>
