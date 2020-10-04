@@ -12,4 +12,8 @@
     <string name="forgot_password"><u>Forgot password?</u></string>
     <string name="sign_in">Sign in</string>
     <string name="back">Back</string>
+    <string name="profile">Profile</string>
+    <string name="enter_your_full_name">Enter your full name</string>
+    <string name="enter_your_mood">Enter your mood</string>
+    <string name="complete">Complete</string>
 </resources>
