@@ -51,7 +51,7 @@
         tools:ignore="ContentDescription" />
 
     <EditText
-        android:id="@+id/inputMood"
+        android:id="@+id/inputFullName"
         android:layout_width="0dp"
         android:layout_height="54dp"
         android:layout_marginStart="28dp"
@@ -84,7 +84,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/inputMood" />
+        app:layout_constraintTop_toBottomOf="@id/inputFullName" />
 
     <Button
         android:id="@+id/signIn"

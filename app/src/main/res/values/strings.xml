@@ -18,4 +18,7 @@
     <string name="complete">Complete</string>
     <string name="personName">%1$s</string>
     <string name="message">Message</string>
+    <string name="server_client_id">919234681341-vlil986dkb6nh8rn8knp3ve6v1f6v7q8.apps.googleusercontent.com</string>
+    <string name="facebook_app_id">855960398546613</string>
+    <string name="fb_login_protocol_scheme">fb855960398546613</string>
 </resources>
