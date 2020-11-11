@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.example.gotalk.storage.Storage
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.android.synthetic.main.sign_in.*
@@ -63,28 +64,15 @@ class SignInFragment : Fragment(R.layout.sign_in), View.OnClickListener {
             ?.replace(R.id.fragment, fragment)?.commit()
     }
 
-    fun next(displayName: String?, photoUrl: Uri?) {
-        val signUpProfile = SignUpProfile()
-
-        if (displayName != null) {
-            val bundle = Bundle().apply {
-                putString("displayName", displayName)
-                putString("photoUri", photoUrl.toString())
-            }
-            signUpProfile.arguments = bundle
-        }
-
-        fragmentManager?.beginTransaction()?.addToBackStack("signInSocial")
-            ?.replace(R.id.fragment, signUpProfile)?.commit()
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             GOOGLE_REQ_CODE -> {
                 val task = GoogleSignIn.getSignedInAccountFromIntent(data)
                 if (task.isSuccessful) {
                     val account = task.result!!
-                    next(account.displayName, account.photoUrl)
+                    Storage.setPerson(account.displayName, account.photoUrl)
+                    fragmentManager?.beginTransaction()?.addToBackStack("signInSocial")
+                        ?.replace(R.id.fragment, SignUpProfile())?.commit()
                 } else {
                     Log.d("ActivityResult", task.exception.toString())
                 }

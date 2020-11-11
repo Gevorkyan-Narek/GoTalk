@@ -10,7 +10,7 @@
         layout="@layout/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="30dp"
         app:layout_constraintBottom_toBottomOf="@id/avatar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/avatar" />
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/personName"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/avatar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,59 +38,63 @@
         tools:ignore="ContentDescription"
         tools:src="@drawable/circle_background" />
 
-    <ImageView
-        android:id="@+id/addItem"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="28dp"
-        android:background="@drawable/circle_background"
-        android:backgroundTint="@color/colorPrimary"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_plus"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="ContentDescription" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerDialog"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="@dimen/recyclerMargin"
+        android:layout_marginTop="@dimen/recyclerMargin"
+        android:layout_marginEnd="@dimen/recyclerMargin"
+        android:layout_marginBottom="@dimen/recyclerMargin"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/inputMessage"
-        app:layout_constraintTop_toBottomOf="@id/personName" />
+        app:layout_constraintTop_toBottomOf="@id/avatar"
+        app:stackFromEnd="true"
+        tools:listitem="@layout/item_dialog" />
 
     <EditText
         android:id="@+id/inputMessage"
         android:layout_width="0dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="31dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/recyclerMargin"
+        android:layout_marginBottom="@dimen/recyclerMargin"
         android:background="@drawable/rounded_background"
         android:hint="@string/message"
         android:importantForAutofill="no"
-        android:inputType="textMultiLine"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
+        android:inputType="textMultiLine|textCapSentences"
+        android:minHeight="54dp"
+        android:paddingStart="45dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="25dp"
+        android:paddingBottom="5dp"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/addItem"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/send"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerDialog"
+        tools:text="ваыаывавы" />
+
+    <ImageView
+        android:id="@+id/addItem"
+        android:layout_width="40dp"
+        android:layout_height="54dp"
+        android:background="@android:color/transparent"
+        android:padding="7dp"
+        android:src="@drawable/ic_plus"
+        app:layout_constraintBottom_toBottomOf="@id/inputMessage"
+        app:layout_constraintStart_toStartOf="@id/inputMessage"
+        app:tint="#AAB0B7"
+        tools:ignore="ContentDescription" />
 
     <ImageButton
         android:id="@+id/send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="18dp"
+        android:layout_width="40dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="@dimen/recyclerMargin"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_send"
         app:layout_constraintBottom_toBottomOf="@id/inputMessage"
-        app:layout_constraintEnd_toEndOf="@id/inputMessage"
-        app:layout_constraintTop_toTopOf="@id/inputMessage"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

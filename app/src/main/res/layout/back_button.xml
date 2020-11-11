@@ -8,7 +8,6 @@
         android:id="@+id/iconBack"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="@drawable/circle_background"
         android:scaleType="centerInside"
         android:src="@drawable/ic_left_arrow"
         tools:ignore="ContentDescription" />

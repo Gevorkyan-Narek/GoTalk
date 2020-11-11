@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="marginStartChatMessage">12dp</dimen>
+    <dimen name="messageTextSize">16sp</dimen>
+    <dimen name="marginBetweenChat">10dp</dimen>
+    <dimen name="messageTextTimeSize">10sp</dimen>
+    <dimen name="paddingTextChat">13dp</dimen>
+    <dimen name="paddingTopBottomTextChat">5dp</dimen>
+    <dimen name="recyclerMargin">10dp</dimen>
+</resources>
