@@ -65,33 +65,6 @@
             app:drawableStartCompat="@drawable/ic_facebook" />
 
     </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/signInApple"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="28dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/signInFacebook">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="@android:color/white"
-            android:drawablePadding="38dp"
-            android:gravity="center"
-            android:text="@string/sign_in_with_apple"
-            android:textSize="16sp"
-            app:drawableStartCompat="@drawable/ic_apple" />
-
-    </androidx.cardview.widget.CardView>
-
     <View
         android:id="@+id/leftRectangle"
         android:layout_width="100dp"
@@ -100,7 +73,7 @@
         android:layout_marginTop="40dp"
         android:background="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/signInApple" />
+        app:layout_constraintTop_toBottomOf="@id/signInFacebook" />
 
     <View
         android:id="@+id/rightRectangle"
@@ -110,7 +83,7 @@
         android:layout_marginEnd="60dp"
         android:background="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/signInApple" />
+        app:layout_constraintTop_toBottomOf="@id/signInFacebook" />
 
     <TextView
         android:id="@+id/labelOr"
@@ -121,7 +94,7 @@
         android:textSize="17sp"
         app:layout_constraintEnd_toStartOf="@id/rightRectangle"
         app:layout_constraintStart_toEndOf="@id/leftRectangle"
-        app:layout_constraintTop_toBottomOf="@id/signInApple" />
+        app:layout_constraintTop_toBottomOf="@id/signInFacebook" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/continueWithPhone"
