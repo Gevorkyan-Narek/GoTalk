@@ -1,10 +1,10 @@
 package com.example.gotalk.model
 
-import android.net.Uri
-
 data class User (
-    val name: String,
-    val lastMessage: String?,
-    val lastMessageTime: String?,
-    val avatar: Uri?
-)
+    val id: String,
+    val name: String?,
+    val email: String?,
+    val avatar: String?
+){
+    constructor(): this("",null,null, null)
+}

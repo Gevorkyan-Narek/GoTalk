@@ -38,18 +38,21 @@
         tools:ignore="ContentDescription"
         tools:src="@drawable/circle_background" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerDialog"
+    <ListView
+        android:id="@+id/dialogListView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/recyclerMargin"
         android:layout_marginTop="@dimen/recyclerMargin"
         android:layout_marginEnd="@dimen/recyclerMargin"
         android:layout_marginBottom="@dimen/recyclerMargin"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"
+        android:isScrollContainer="false"
+        android:scrollbarThumbVertical="@android:color/transparent"
+        android:stackFromBottom="true"
         app:layout_constraintBottom_toTopOf="@id/inputMessage"
         app:layout_constraintTop_toBottomOf="@id/avatar"
-        app:stackFromEnd="true"
         tools:listitem="@layout/item_dialog" />
 
     <EditText
@@ -71,7 +74,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/send"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recyclerDialog"
+        app:layout_constraintTop_toBottomOf="@id/dialogListView"
         tools:text="ваыаывавы" />
 
     <ImageView

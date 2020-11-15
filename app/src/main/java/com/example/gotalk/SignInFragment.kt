@@ -5,35 +5,34 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.example.gotalk.storage.Storage
+import com.example.gotalk.dagger.App
+import com.example.gotalk.model.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.DatabaseReference
 import kotlinx.android.synthetic.main.sign_in.*
+import javax.inject.Inject
+import javax.inject.Named
 
 
-class SignInFragment : Fragment(R.layout.sign_in), View.OnClickListener {
+class SignInFragment : Fragment(R.layout.sign_in) {
 
     companion object {
         private const val GOOGLE_REQ_CODE = 1
     }
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var gso: GoogleSignInOptions
-    private lateinit var signGoogle: GoogleSignInClient
+    @Inject
+    lateinit var auth: FirebaseAuth
+
+    @Inject
+    lateinit var signGoogle: GoogleSignInClient
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.server_client_id))
-            .requestEmail()
-            .build()
-        signGoogle = GoogleSignIn.getClient(activity!!, gso)
-
-        auth = FirebaseAuth.getInstance()
+        App.getComponent().inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,43 +44,18 @@ class SignInFragment : Fragment(R.layout.sign_in), View.OnClickListener {
         }
     }
 
-    override fun onClick(v: View?) {
-
-        val fragment = SignInSocialFragment()
-        val bundle = Bundle().apply {
-            putInt(
-                "Social",
-                when (v?.id) {
-                    R.id.signIn -> {
-                        R.string.sign_in_with_google
-                    }
-                    R.id.signInFacebook -> {
-                        R.string.sign_in_with_facebook
-                    }
-                    else -> R.string.sign_in
-                }
-            )
-
-        }
-
-        fragment.arguments = bundle
-        fragmentManager?.beginTransaction()?.addToBackStack("signIn")
-            ?.replace(R.id.fragment, fragment)?.commit()
-    }
-
     private fun firebaseAuthWithGoogle(idToken: String) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(activity!!) { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    Storage.setPerson(user?.displayName, user?.photoUrl)
-                    fragmentManager?.beginTransaction()?.addToBackStack("signInSocial")
-                        ?.replace(R.id.fragment, SignUpProfile())?.commit()
-                } else {
-                    Log.w("AuthWithGoogle", "signInWithCredential:failure", task.exception)
+        GoogleAuthProvider.getCredential(idToken, null).apply {
+            auth.signInWithCredential(this)
+                .addOnCompleteListener(activity!!) { task ->
+                    if (task.isSuccessful) {
+                        fragmentManager?.beginTransaction()?.addToBackStack("signInSocial")
+                            ?.replace(R.id.fragment, SignUpProfile())?.commit()
+                    } else {
+                        Log.w("AuthWithGoogle", "signInWithCredential:failure", task.exception)
+                    }
                 }
-            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
