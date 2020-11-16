@@ -10,11 +10,11 @@ import com.example.gotalk.model.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.DatabaseReference
 import kotlinx.android.synthetic.main.sign_in.*
 import javax.inject.Inject
-import javax.inject.Named
 
 
 class SignInFragment : Fragment(R.layout.sign_in) {
@@ -29,10 +29,14 @@ class SignInFragment : Fragment(R.layout.sign_in) {
     @Inject
     lateinit var signGoogle: GoogleSignInClient
 
+    @Inject
+    lateinit var reference: DatabaseReference
+    private lateinit var usersReference: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         App.getComponent().inject(this)
+        usersReference = reference.child("users")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,6 +53,15 @@ class SignInFragment : Fragment(R.layout.sign_in) {
             auth.signInWithCredential(this)
                 .addOnCompleteListener(activity!!) { task ->
                     if (task.isSuccessful) {
+                        val user = auth.currentUser!!
+                        usersReference.child(user.uid).setValue(
+                            User(
+                                user.uid,
+                                user.displayName,
+                                user.email,
+                                user.photoUrl.toString()
+                            )
+                        )
                         fragmentManager?.beginTransaction()?.addToBackStack("signInSocial")
                             ?.replace(R.id.fragment, SignUpProfile())?.commit()
                     } else {

@@ -3,7 +3,6 @@ package com.example.gotalk.dagger
 import android.app.Application
 import com.example.gotalk.dagger.component.DaggerSignInComponent
 import com.example.gotalk.dagger.component.SignInComponent
-import com.example.gotalk.dagger.modules.FirebaseModule
 import com.example.gotalk.dagger.modules.GoogleSignInModule
 
 class App: Application() {

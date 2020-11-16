@@ -1,6 +1,8 @@
 package com.example.gotalk.storage
 
+import com.example.gotalk.model.User
+
 interface CallbackAdapter {
 
-    fun changeFragment(id: String)
+    fun changeFragment(recipient: User)
 }

@@ -3,6 +3,7 @@ package com.example.gotalk
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.example.gotalk.dagger.App
 import com.example.gotalk.storage.setImage
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.sign_in_social.back
@@ -13,6 +14,11 @@ class SignUpProfile : Fragment(R.layout.sign_up_profile) {
 
     @Inject
     lateinit var user: FirebaseUser
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        App.getComponent().inject(this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         back.setOnClickListener {

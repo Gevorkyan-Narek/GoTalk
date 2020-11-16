@@ -1,23 +1,25 @@
 package com.example.gotalk
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.gotalk.dagger.App
+import com.example.gotalk.databinding.ActivityMainBinding
+import com.example.gotalk.databinding.DialogBinding
 import com.example.gotalk.model.Message
 import com.example.gotalk.model.User
 import com.example.gotalk.storage.setImage
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.dialog.*
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
+import org.threeten.bp.LocalTime
+import org.threeten.bp.format.DateTimeFormatter
 import javax.inject.Inject
 
-class DialogFragment : Fragment(R.layout.dialog), View.OnClickListener {
+class DialogFragment : Fragment(), View.OnClickListener {
 
     @Inject
     lateinit var reference: DatabaseReference
@@ -26,43 +28,35 @@ class DialogFragment : Fragment(R.layout.dialog), View.OnClickListener {
     lateinit var user: FirebaseUser
     lateinit var recipient: User
 
-    lateinit var usersReferenceDB: DatabaseReference
-    lateinit var messageReferenceDB: DatabaseReference
+    private lateinit var recipientReferenceDB: DatabaseReference
+    private lateinit var messageReferenceDB: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         App.getComponent().inject(this)
-        usersReferenceDB = reference.child("users")
-        messageReferenceDB = reference.child("messages")
+        val recipientId = arguments?.getString("recipientId")
+        if (recipientId != null) {
+            recipientReferenceDB =
+                reference.child("users").child(user.uid).child("recipients").child(recipientId)
+            messageReferenceDB = recipientReferenceDB.child("messages")
+        }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val recipientId = arguments?.getString("recipientId")
-        val messages = arrayListOf<Message>()
-        val adapter = DialogAdapter(R.layout.dialog, activity!!, messages)
-        dialogListView.adapter = adapter
-        dialogListView.isSmoothScrollbarEnabled = true
-
-        usersReferenceDB.addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val possibleRecipient = snapshot.getValue(User::class.java)
-                if (possibleRecipient != null && possibleRecipient.id == recipientId) {
-                    recipient = possibleRecipient
-                    avatar.setImage(recipient.avatar)
-                    personName.text = recipient.name
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding: DialogBinding =
+            DataBindingUtil.inflate(inflater, R.layout.dialog, container, false)
+        val view = binding.root
+        recipientReferenceDB.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val probablyRecipient = snapshot.getValue(User::class.java)
+                if (probablyRecipient != null) {
+                    recipient = probablyRecipient
+                    binding.recipient = recipient
                 }
-            }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-
-            }
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -70,33 +64,32 @@ class DialogFragment : Fragment(R.layout.dialog), View.OnClickListener {
             }
 
         })
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val adapter = DialogAdapter(R.layout.dialog, activity!!, arrayListOf())
+        dialogListView.adapter = adapter
+
+        messageChildListener(adapter)
         send.setOnClickListener(this)
         back.setOnClickListener { fragmentManager?.popBackStack() }
+    }
 
+    private fun messageChildListener(adapter: DialogAdapter) {
         messageReferenceDB.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val message = snapshot.getValue(Message::class.java)
 
                 if (message != null) {
-                    if (message.senderId == user.uid && message.recipientId == recipient.id) {
-                        try {
-                            message.isMine = true
-                            adapter.add(message)
+                    try {
+                        message.isMine = message.senderId == user.uid
+                        adapter.add(message)
+                        if (dialogListView != null)
                             dialogListView.smoothScrollToPosition(dialogListView.count - 1)
 
-                        } catch (nlp: NullPointerException) {
-                            nlp.printStackTrace()
-                        }
-                    } else if ((message.senderId == user.uid && message.recipientId == recipient.id) ||
-                        (message.senderId == recipient.id && message.recipientId == user.uid)
-                    ) {
-                        try {
-                            message.isMine = false
-                            adapter.add(message)
-                            dialogListView.smoothScrollToPosition(dialogListView.count - 1)
-                        } catch (nlp: NullPointerException) {
-                            nlp.printStackTrace()
-                        }
+                    } catch (nlp: NullPointerException) {
+                        nlp.printStackTrace()
                     }
                 }
             }
