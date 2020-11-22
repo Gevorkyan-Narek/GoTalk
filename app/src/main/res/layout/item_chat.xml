@@ -5,7 +5,7 @@
     <data>
         <variable
             name="recipient"
-            type="com.example.gotalk.model.User" />
+            type="com.example.gotalk.data.entities.User" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
