@@ -1,9 +1,9 @@
-package com.example.gotalk.dagger
+package com.example.gotalk.data.dagger
 
 import android.app.Application
-import com.example.gotalk.dagger.component.DaggerSignInComponent
-import com.example.gotalk.dagger.component.SignInComponent
-import com.example.gotalk.dagger.modules.GoogleSignInModule
+import com.example.gotalk.data.dagger.component.DaggerSignInComponent
+import com.example.gotalk.data.dagger.component.SignInComponent
+import com.example.gotalk.data.dagger.modules.GoogleSignInModule
 
 class App: Application() {
 

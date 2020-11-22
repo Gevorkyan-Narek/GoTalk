@@ -1,33 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
-            name="recipient"
-            type="com.example.gotalk.model.User" />
+            name="viewModel"
+            type="com.example.gotalk.viewmodel.DialogViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
+        <LinearLayout
             android:id="@+id/back"
-            layout="@layout/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
+            android:onClick="@{()->viewModel.onBackPressed()}"
             app:layout_constraintBottom_toBottomOf="@id/avatar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/avatar" />
+            app:layout_constraintTop_toTopOf="@id/avatar">
+
+            <ImageView
+                android:id="@+id/iconBack"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_left_arrow"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/labelBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:text="@string/back"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/personName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{recipient.name}"
+            android:text="@{viewModel.recipient.name}"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/avatar"
@@ -42,13 +62,13 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="30dp"
-            android:src="@{recipient.avatar}"
+            android:src="@{viewModel.recipient.avatar}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ContentDescription"
             tools:src="@drawable/circle_background" />
 
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dialogListView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -58,11 +78,12 @@
             android:layout_marginBottom="@dimen/recyclerMargin"
             android:divider="@android:color/transparent"
             android:dividerHeight="10dp"
-            android:isScrollContainer="false"
+            android:isScrollContainer="true"
             android:scrollbarThumbVertical="@android:color/transparent"
-            android:stackFromBottom="true"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/inputMessage"
             app:layout_constraintTop_toBottomOf="@id/avatar"
+            app:stackFromEnd="true"
             tools:listitem="@layout/item_dialog" />
 
         <EditText
@@ -80,6 +101,7 @@
             android:paddingTop="5dp"
             android:paddingEnd="25dp"
             android:paddingBottom="5dp"
+            android:text="@={viewModel.inputMessage}"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/send"
@@ -105,6 +127,7 @@
             android:layout_height="54dp"
             android:layout_marginEnd="@dimen/recyclerMargin"
             android:background="@android:color/transparent"
+            android:onClick="@{() -> viewModel.sendMessage()}"
             android:src="@drawable/ic_send"
             app:layout_constraintBottom_toBottomOf="@id/inputMessage"
             app:layout_constraintEnd_toEndOf="parent"

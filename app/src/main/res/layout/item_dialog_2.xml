@@ -1,48 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+        <variable
+            name="message"
+            type="com.example.gotalk.data.entities.Message" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/marginBetweenChat"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/top_rounded_background"
-            android:backgroundTint="@color/lightGray"
-            android:maxEms="15"
-            android:minWidth="100dp"
-            android:paddingStart="@dimen/paddingTextChat"
-            android:paddingEnd="@dimen/paddingTextChat"
-            android:paddingTop="@dimen/paddingTopBottomTextChat"
-            android:paddingBottom="@dimen/paddingTopBottomTextChat"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Привет." />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/messageTime"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bottom_rounded_background"
-            android:backgroundTint="@color/lightGray"
-            android:paddingStart="@dimen/paddingTextChat"
-            android:paddingTop="@dimen/paddingTopBottomTextChat"
-            android:paddingEnd="@dimen/paddingTextChat"
-            android:paddingBottom="@dimen/paddingTopBottomTextChat"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/messageTextTimeSize"
-            app:layout_constraintEnd_toEndOf="@id/message"
-            app:layout_constraintStart_toStartOf="@id/message"
-            app:layout_constraintTop_toBottomOf="@id/message"
-            tools:text="5:55" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+            <TextView
+                android:id="@+id/messageTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/top_rounded_background"
+                android:backgroundTint="@color/lightGray"
+                android:maxEms="15"
+                android:minWidth="100dp"
+                android:paddingStart="@dimen/paddingTextChat"
+                android:paddingEnd="@dimen/paddingTextChat"
+                android:paddingTop="@dimen/paddingTopBottomTextChat"
+                android:paddingBottom="@dimen/paddingTopBottomTextChat"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:text="@{message.text}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Привет." />
+
+            <TextView
+                android:id="@+id/messageTime"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bottom_rounded_background"
+                android:backgroundTint="@color/lightGray"
+                android:paddingStart="@dimen/paddingTextChat"
+                android:paddingTop="@dimen/paddingTopBottomTextChat"
+                android:paddingEnd="@dimen/paddingTextChat"
+                android:paddingBottom="@dimen/paddingTopBottomTextChat"
+                android:textColor="@android:color/black"
+                android:text="@{message.time}"
+                android:textSize="@dimen/messageTextTimeSize"
+                app:layout_constraintEnd_toEndOf="@id/messageTV"
+                app:layout_constraintStart_toStartOf="@id/messageTV"
+                app:layout_constraintTop_toBottomOf="@id/messageTV"
+                tools:text="5:55" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</layout>

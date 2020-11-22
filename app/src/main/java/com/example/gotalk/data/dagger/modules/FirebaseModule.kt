@@ -1,4 +1,4 @@
-package com.example.gotalk.dagger.modules
+package com.example.gotalk.data.dagger.modules
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase

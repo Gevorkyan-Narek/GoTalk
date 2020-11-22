@@ -1,4 +1,4 @@
-package com.example.gotalk.storage
+package com.example.gotalk.data.storage
 
 import android.net.Uri
 import android.widget.ImageView
