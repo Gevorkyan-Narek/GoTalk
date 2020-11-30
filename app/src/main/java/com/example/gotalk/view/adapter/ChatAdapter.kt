@@ -8,9 +8,10 @@ import com.example.gotalk.data.storage.FragmentNavigator
 import com.example.gotalk.databinding.ItemChatBinding
 
 class ChatAdapter(
-    private var recipientList: ArrayList<User>,
     private var listener: FragmentNavigator
 ) : RecyclerView.Adapter<ChatAdapter.ViewHolder>() {
+
+    private var recipientsList = arrayListOf<User>()
 
     class ViewHolder(private var binding: ItemChatBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -27,8 +28,13 @@ class ChatAdapter(
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(recipientList[position], listener)
+    fun refreshRecipients(recipients: ArrayList<User>) {
+        recipientsList = recipients
+        notifyDataSetChanged()
+    }
 
-    override fun getItemCount(): Int = recipientList.size
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+        holder.bind(recipientsList[position], listener)
+
+    override fun getItemCount(): Int = recipientsList.size
 }

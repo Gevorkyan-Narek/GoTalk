@@ -1,6 +1,8 @@
 package com.example.gotalk.data.model
 
+import androidx.lifecycle.MutableLiveData
 import com.example.gotalk.data.dagger.App
+import com.example.gotalk.viewmodel.MainViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -20,6 +22,8 @@ abstract class RepoModel {
 
     @Inject
     lateinit var user: FirebaseUser
+
+    val state: MutableLiveData<Int> = MutableLiveData(MainViewModel.SPLASH_SCREEN)
 
     lateinit var usersReferenceDB: DatabaseReference
 

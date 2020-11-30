@@ -2,10 +2,9 @@ package com.example.gotalk.data.dagger.component
 
 import com.example.gotalk.data.dagger.modules.FirebaseModule
 import com.example.gotalk.data.dagger.modules.GoogleSignInModule
-import com.example.gotalk.data.model.DialogModel
+import com.example.gotalk.data.model.ActivityModel
 import com.example.gotalk.data.model.RepoModel
-import com.example.gotalk.data.model.SignInModel
-import com.example.gotalk.view.*
+import com.example.gotalk.view.SignUpProfile
 import dagger.Component
 import javax.inject.Singleton
 
@@ -13,9 +12,7 @@ import javax.inject.Singleton
 @Singleton
 interface SignInComponent {
 
-    fun inject(signInFragment: SignInFragment)
-    fun inject(chatFragment: ChatFragment)
-    fun inject(mainActivity: MainActivity)
     fun inject(signUpProfile: SignUpProfile)
     fun inject(repoModel: RepoModel)
+    fun inject(activityModel: ActivityModel)
 }
