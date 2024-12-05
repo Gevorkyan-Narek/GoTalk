@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="recipient"
+            type="com.example.gotalk.model.User" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/back"
+            layout="@layout/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            app:layout_constraintBottom_toBottomOf="@id/avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/avatar" />
+
+        <TextView
+            android:id="@+id/personName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{recipient.name}"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/avatar"
+            tools:text="Нарек Геворкян" />
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:src="@{recipient.avatar}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/circle_background" />
+
+        <ListView
+            android:id="@+id/dialogListView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/recyclerMargin"
+            android:layout_marginTop="@dimen/recyclerMargin"
+            android:layout_marginEnd="@dimen/recyclerMargin"
+            android:layout_marginBottom="@dimen/recyclerMargin"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10dp"
+            android:isScrollContainer="false"
+            android:scrollbarThumbVertical="@android:color/transparent"
+            android:stackFromBottom="true"
+            app:layout_constraintBottom_toTopOf="@id/inputMessage"
+            app:layout_constraintTop_toBottomOf="@id/avatar"
+            tools:listitem="@layout/item_dialog" />
+
+        <EditText
+            android:id="@+id/inputMessage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/recyclerMargin"
+            android:layout_marginBottom="@dimen/recyclerMargin"
+            android:background="@drawable/rounded_background"
+            android:hint="@string/message"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine|textCapSentences"
+            android:minHeight="54dp"
+            android:paddingStart="45dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="25dp"
+            android:paddingBottom="5dp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/send"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialogListView"
+            tools:text="ваыаывавы" />
+
+        <ImageView
+            android:id="@+id/addItem"
+            android:layout_width="40dp"
+            android:layout_height="54dp"
+            android:background="@android:color/transparent"
+            android:padding="7dp"
+            android:src="@drawable/ic_plus"
+            app:layout_constraintBottom_toBottomOf="@id/inputMessage"
+            app:layout_constraintStart_toStartOf="@id/inputMessage"
+            app:tint="#AAB0B7"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/send"
+            android:layout_width="40dp"
+            android:layout_height="54dp"
+            android:layout_marginEnd="@dimen/recyclerMargin"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_send"
+            app:layout_constraintBottom_toBottomOf="@id/inputMessage"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
