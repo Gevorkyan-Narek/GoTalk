@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">GoTalk</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="sign_in_with_facebook">Sign in with Facebook</string>
+    <string name="sign_in_with_apple">Sign in with Apple</string>
+    <string name="or">or</string>
+    <string name="continue_with_phone_number">Continue with phone number</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="sign_up_here">Sign up here</string>
+    <string name="enter_your_gmail_address">Enter your gmail address</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="forgot_password"><u>Forgot password?</u></string>
+    <string name="sign_in">Sign in</string>
+    <string name="back">Back</string>
+    <string name="profile">Profile</string>
+    <string name="enter_your_full_name">Enter your full name</string>
+    <string name="enter_your_mood">Enter your mood</string>
+    <string name="complete">Complete</string>
+    <string name="personName">%1$s</string>
+    <string name="message">Message</string>
 </resources>
