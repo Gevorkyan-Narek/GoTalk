@@ -1,8 +1,9 @@
-package com.example.gotalk
+package com.example.gotalk.view
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.example.gotalk.R
 import kotlinx.android.synthetic.main.sign_in_social.*
 
 class SignInSocialFragment : Fragment(R.layout.sign_in_social) {

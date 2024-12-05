@@ -1,10 +1,11 @@
-package com.example.gotalk
+package com.example.gotalk.view
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.example.gotalk.dagger.App
-import com.example.gotalk.storage.setImage
+import com.example.gotalk.R
+import com.example.gotalk.data.dagger.App
+import com.example.gotalk.data.storage.setImage
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.sign_in_social.back
 import kotlinx.android.synthetic.main.sign_up_profile.*

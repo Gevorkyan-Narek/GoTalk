@@ -1,4 +1,4 @@
-package com.example.gotalk.dagger.modules
+package com.example.gotalk.data.dagger.modules
 
 import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
